@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Meu carrinho</h3>
+{% if order and order.items.all %}
+<table class="table">
+  <thead>
+    <tr><th>Produto</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr>
+  </thead>
+  <tbody>
+    {% for item in order.items.all %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>R$ {{ item.unit_price }}</td>
+        <td>R$ {{ item.subtotal }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3" class="text-end fw-bold">Total</td>
+      <td class="fw-bold">R$ {{ order.total }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<form method="post" action="{% url 'store:checkout' %}">
+  {% csrf_token %}
+  <button class="btn btn-primary">Finalizar pedido</button>
+</form>
+{% else %}
+<p>Seu carrinho está vazio.</p>
+{% endif %}
+{% endblock %}

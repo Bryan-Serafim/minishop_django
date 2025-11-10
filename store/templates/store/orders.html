@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Meus pedidos</h3>
+{% for o in orders %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>Pedido #{{ o.id }}</strong> — {{ o.get_status_display }} — {{ o.created_at|date:"d/m/Y H:i" }}
+        </div>
+        <div>Total: <strong>R$ {{ o.total }}</strong></div>
+      </div>
+      <hr>
+      <ul class="mb-0">
+        {% for it in o.items.all %}
+          <li>{{ it.product.name }} × {{ it.quantity }} — R$ {{ it.subtotal }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% empty %}
+<p>Você ainda não enviou pedidos.</p>
+{% endfor %}
+{% endblock %}

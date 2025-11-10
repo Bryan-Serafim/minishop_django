@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col">
+    <a href="{% url 'store:product_list' %}" class="btn btn-sm btn-outline-secondary {% if not selected_category %}active{% endif %}">Todas</a>
+    {% for c in categories %}
+      <a href="?category={{ c.slug }}" class="btn btn-sm btn-outline-secondary {% if selected_category == c.slug %}active{% endif %}">{{ c.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for p in products %}
+  <div class="col">
+    <div class="card h-100">
+      {% if p.image %}
+      <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ p.name }}</h5>
+        <p class="card-text">{{ p.description|truncatechars:100 }}</p>
+        <p class="fw-bold">R$ {{ p.price }}</p>
+        <a href="{% url 'store:product_detail' p.slug %}" class="btn btn-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>Nenhum produto encontrado.</p>
+  {% endfor %}
+</div>
+{% endblock %}

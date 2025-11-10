@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-5">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+    {% endif %}
+  </div>
+  <div class="col-md-7">
+    <h2>{{ product.name }}</h2>
+    <p class="text-muted">{{ product.category.name }}</p>
+    <p>{{ product.description }}</p>
+    <h4>R$ {{ product.price }}</h4>
+
+    <form method="post" action="{% url 'store:add_to_cart' product.slug %}">
+      {% csrf_token %}
+      {{ form.quantity }}
+      <button class="btn btn-success">Adicionar ao carrinho</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
