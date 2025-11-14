@@ -95,3 +95,7 @@ Bryan Fernando
 📜 Licença
 
 Projeto desenvolvido como atividade da disciplina Programação III – IFRO.
+
+## Site para acessar a aplicação
+
+https://bryanserafim.pythonanywhere.com/
